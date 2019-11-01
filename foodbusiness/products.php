@@ -80,4 +80,84 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Astor Mediterranean</title>
 </head>
+<body>
+  <div id="container">
+    <div id="header">
+     <h1>Mediterranean food</h1>
+     Healthy, Fresh... and Fast!
+     <?php 
+       echo searchForm($search);
+      ?>
+    </div>
+    <div id="subheader">
+      <h2>Products</h2>
+      <ul id="navigation">
+        <li><a href="index.php">Home</a></li>
+        <li><a href="about.php">About</a></li>
+        <li class="active">Products</li>
+        <li><a href="contact.php">Contact</a></li>
+      </ul>
+    </div>
+    <div id="content">
+      <h3>Our Product Categories</h3>
+      <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+        <fieldset>
+          <legend>Choose and Submit to Filter by Category</legend>
+          <?php
+            if (isset($_POST['category_id'])) $category_id = $_POST['category_id'];
+            $data = commonHtmlFormTag (
+              'Select Category', 
+              'category_id', 
+              'select', 
+              $category_id, 
+              array('required' => true), 
+              $validate, 
+              $food_categories
+            );
+            echo $data['print'];
+          ?>
+          <br /><br />
+          <?php
+            $data = commonHtmlFormTag(
+              '', 
+              'filter_products', 
+              'submit', 
+              'Filter Products'
+            );
+            echo $data['print'];
+          ?>
+          &nbsp;
+          &nbsp;
+          <?php
+            $data = commonHtmlFormTag(
+              '', 
+              'clear_filter', 
+              'submit', 
+              'Clear Filter'
+            );
+            echo $data['print'];
+          ?>
+        </fieldset>
+      </form>
+      <br/><br/>
+      <?php if (!empty($category_id)) { ?>
+      <h3>Selected Category-Wise products</h3>
+      <?php } elseif (!empty($search)) { ?>
+      <h3>Search-String[<strong><?php echo $search;?></strong>]-Wise Product(s)</h3>
+      <?php } else { ?>
+      <h3>All Product(s)</h3>
+      <?php } ?>
+      <?php echo $table; ?>
+    </div>
+    <div id="subcontent">
+      A list of products that can be filtered by category is given on this page.
+      <br/><br/>
+      The results can be sorted by name and price in both ascending and descending order.
+    </div>
+    <div id="footer">
+      Small Food Restaurant Business Website. 
+    </div>
+  </div>
+  </div>
+</body>
 </html>
