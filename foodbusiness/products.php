@@ -13,16 +13,16 @@
   if($_SERVER['REQUEST_METHOD'] === 'POST'){
       if(isset($_POST['filter_products'])){
           $validate = true;
-          $_SESSION['catagory_id'] = $_POST['catagory_id'];
+          $_SESSION['category_id'] = $_POST['category_id'];
           unset($_SESSION['search_string']);
       } elseif(isset($_POST['clear_filter'])){
-          unset($_SESSION['catagory_id']);
-          unset($_POST['catagory_id']);
+          unset($_SESSION['category_id']);
+          unset($_POST['category_id']);
       }
       if(isset($_POST['search'])){
           $_SESSION['search_string'] = $_POST['search_string'];
-          unset($_SESSION['catagory_id']);
-          unset($_POST['catagory_id']);
+          unset($_SESSION['category_id']);
+          unset($_POST['category_id']);
       } elseif(isset($_POST['clear_search'])){
           unset($_SESSION['search_string']);
       }
@@ -41,13 +41,13 @@
         }
     }
 
-    $food_catagories = $t;
-    if(isset($_SESSION['catagory_id'])){
-        $catagory_id = $_SESSION['catagory_id'];
-    } elseif (isset($_POST['catagory_id'])){
-        $catagory_id = $_POST['catagory_id'];
+    $food_categories = $t;
+    if(isset($_SESSION['category_id'])){
+        $category_id = $_SESSION['category_id'];
+    } elseif (isset($_POST['cateory_id'])){
+        $category_id = $_POST['category_id'];
     } else{
-        $catagory_id = '';
+        $category_id = '';
     }
     if(isset($_SESSION['search_string'])){
         $search = $_SESSION['search_string'];
@@ -55,7 +55,7 @@
 ?>
 
 <?php
- $result = getAllProductsByCatagoryOrSearch($catagory_id, $search);
+ $result = getAllProductsByCatagoryOrSearch($category_id, $search);
  if(is_string($result)){
     $table = $result;
  } else{
@@ -63,8 +63,8 @@
     if(($column !== '') && (!empty($direction))){
         $data = sortData($data, $column, $direction);
     }
-    if(empty($catagory_id)){
-        $headings = array('Product Name', 'Product Price', 'Click to see details', 'Catagory');
+    if(empty($category_id)){
+        $headings = array('Product Name', 'Product Price', 'Click to see details', 'Category');
     } else{
         $headings = array('Product Name', 'Product Price', 'Click to see details'); 
     }
@@ -155,7 +155,7 @@
       The results can be sorted by name and price in both ascending and descending order.
     </div>
     <div id="footer">
-      Small Food Restaurant Business Website. 
+      Small food restaurant business website. 
     </div>
   </div>
   </div>
